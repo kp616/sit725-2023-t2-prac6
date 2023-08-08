@@ -1,18 +1,3 @@
-const cardList = [
-  {
-    title: "Kitten 2",
-    image: "https://placekitten.com/g/300/300",
-    link: "About Kitten 2",
-    desciption: "Cute kitty in a picture!",
-  },
-  {
-    title: "Kitten 3",
-    image: "https://placekitten.com/200/200",
-    link: "About Kitten 3",
-    desciption: "Another cute kitty!",
-  },
-];
-
 const clickMe = () => {
   alert("Thanks for clicking me. Hope you have a nice day!");
 };
@@ -44,12 +29,26 @@ const addCards = (items) => {
 
 const submitForm = () => {
   let formData = {};
-  formData.first_name = $("#first_name").val();
-  formData.last_name = $("#last_name").val();
-  formData.password = $("#password").val();
-  formData.email = $("#email").val();
+  formData.title = $("#title").val();
+  formData.subtitle = $("#subtitle").val();
+  formData.path = $("#path").val();
+  formData.description = $("#description").val();
   console.log("Form Data Submitted: ", formData);
+  postCat(formData);
 };
+
+function postCat(cat){
+  $.ajax({
+    url: "/api/cat",
+    type: "POST",
+    data: cat,
+    success: (result) => {
+      if (result.statusCode === 201) {
+        alert("cat post successful");
+      }
+    },
+  });
+}
 
 $(document).ready(function() {
   $(".materialboxed").materialbox();
@@ -57,5 +56,4 @@ $(document).ready(function() {
     submitForm();
   });
   $(".modal").modal();
-  addCards(cardList);
 });

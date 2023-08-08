@@ -1,37 +1,56 @@
 let express = require('express');
 let app = express();
 let port = process.env.port || 3000;
-
-
+//MongoDB
+const { MongoClient, ServerApiVersion } = require("mongodb");
+const uri =
+  "mongodb+srv://kevinphan4:42sysuwDcD3H5ER@cluster0.icn9n44.mongodb.net/?retryWrites=true&w=majority";
+let collection;
 
 app.use(express.static(__dirname + '/'));
+
+//MongoDB access
+
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+    serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+    },
+});
+
+async function runDBConnection() {
+  try {
+    // Connect the client to the server	(optional starting in v4.7)
+    await client.connect();
+    collection = client.db().collection('Cat');
+    console.log(collection);
+  } catch(ex){
+    console.error(ex);
+  } 
+}
+
+
 app.get('/', (req, res) =>{
     res.render('index.html');
 })
 
-// app.get('/addTwoNumbers', (req, res)=>{
-//     //grab values from url parameter
-//     //number1=1&number2=2
-//     let num1 = req.query.number1;
-//     let num2 = req.query.number2;
+app.post('/api/cat', (req, res) => {
+    let cat = req.body;
+    postCat(cat, (err, result) => {
+        if(!err) {
+        res.json({statusCode: 201, data: result, message:'success'})
+        }
+    });
+});
 
-//     let sum = parseInt(num1) + parseInt(num2);
-
-//     //construct response include statuscode, message and data
-//     let obj = {statusCode:200, message: 'Successful execution.', data:sum}
-//     res.json(obj);
-// })
-// //multiplying numbers
-// app.get('/multiplyTwoNumbers', (req, res)=> {
-//     let num1 = 2; //let this be 2
-//     let num2 = 5; // let this be 5
-
-//     let result = num1 * num2;
-//     let obj = {statusCode: 200, message: `Multiplied ${num1} and ${num2}`, data: result};
-//     res.json(obj);
-// })
+function postCat(cat, callback) {
+    collection.insertOne(cat, callback);
+}
 
 app.listen(port, ()=>{
     console.log('App listening to: ' + port);
+    runDBConnection();
 }
 ); //will fire upon server start
