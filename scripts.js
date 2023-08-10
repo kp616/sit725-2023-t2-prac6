@@ -37,7 +37,7 @@ const submitForm = () => {
   postCat(formData);
 };
 
-function postCat(cat){
+function postCat(cat) {
   $.ajax({
     url: "/api/cat",
     type: "POST",
@@ -50,10 +50,21 @@ function postCat(cat){
   });
 }
 
-$(document).ready(function() {
+//jquery get request
+function getAllCats() {
+  $.get("/api/cats", (response) => {
+    // response data in array format to use it
+    if(result.statusCode === 200){
+      addCards(response.data);
+    }
+  });
+}
+
+$(document).ready(function () {
   $(".materialboxed").materialbox();
   $("#formSubmit").click(() => {
     submitForm();
   });
   $(".modal").modal();
+  getAllCats();
 });

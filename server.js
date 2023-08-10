@@ -31,10 +31,20 @@ async function runDBConnection() {
   } 
 }
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res) =>{
     res.render('index.html');
 })
+
+app.get('/api/cats', (req, res) => {
+  getAllCats((err, res) => {
+    if(!err) {
+        res.json({statusCode: 201, data: result, message:'get all cats successful'})
+        }
+  })
+});
 
 app.post('/api/cat', (req, res) => {
     let cat = req.body;
@@ -47,6 +57,10 @@ app.post('/api/cat', (req, res) => {
 
 function postCat(cat, callback) {
     collection.insertOne(cat, callback);
+}
+
+function getAllCats(callback){
+  collection.find({}).toArray(callback);
 }
 
 app.listen(port, ()=>{
