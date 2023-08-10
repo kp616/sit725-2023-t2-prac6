@@ -39,9 +39,9 @@ app.get('/', (req, res) =>{
 })
 
 app.get('/api/cats', (req, res) => {
-  getAllCats((err, res) => {
+  getAllCats((err, result) => {
     if(!err) {
-        res.json({statusCode: 201, data: result, message:'get all cats successful'})
+        res.json({statusCode: 201, data:result, message:'get all cats successful'})
         }
   })
 });
@@ -50,7 +50,7 @@ app.post('/api/cat', (req, res) => {
     let cat = req.body;
     postCat(cat, (err, result) => {
         if(!err) {
-        res.json({statusCode: 201, data: result, message:'success'})
+        res.json({statusCode: 201, data:result, message:'success'})
         }
     });
 });
