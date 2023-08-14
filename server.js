@@ -37,11 +37,11 @@ app.use(express.urlencoded({ extended: false }));
 app.get('/', (req, res) =>{
     res.render('index.html');
 })
-
+//changed 201 to 200, but addCards are still note being called 14/08/2023
 app.get('/api/cats', (req, res) => {
   getAllCats((err, result) => {
     if(!err) {
-        res.json({statusCode: 201, data:result, message:'get all cats successful'})
+        res.json({statusCode: 200, data:result, message:'get all cats successful'})
         }
   })
 });
