@@ -7,7 +7,7 @@ const addCards = (items) => {
     let itemToAppend =
       '<div class="col s4 center-align">' +
       '<div class="card medium"><div class="card-image waves-effect waves-block waves-light"><img class="activator" src="' +
-      item.image +
+      item.path +
       '">' +
       '</div><div class="card-content">' +
       '<span class="card-title activator grey-text text-darken-4">' +
@@ -54,7 +54,7 @@ function postCat(cat) {
 function getAllCats() {
   $.get("/api/cats", (response) => {
     // response data in array format to use it
-    if(result.statusCode === 200){
+    if(response.statusCode === 200){
       addCards(response.data);
     }
   });
