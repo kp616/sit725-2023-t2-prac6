@@ -45,6 +45,7 @@ function postCat(cat) {
     success: (result) => {
       if (result.statusCode === 201) {
         alert("cat post successful");
+        location.reload();
       }
     },
   });
@@ -52,10 +53,10 @@ function postCat(cat) {
 
 //jquery get request
 function getAllCats() {
-  $.get("/api/cat", (response) => {
+  $.get("/api/cat", (result) => {
     // response data in array format to use it
-    if(response.statusCode === 200){
-      addCards(response.data);
+    if(result.statusCode === 200){
+      addCards(result.data);
     }
   });
 }
