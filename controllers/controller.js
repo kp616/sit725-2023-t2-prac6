@@ -21,4 +21,4 @@ const getAllCats = (req, res) => {
   });
 };
 
-module.exports = { postCat, getAllCats };
+module.exports = { postCat, getAllCats }

@@ -1,12 +1,8 @@
 let express = require('express');
 let app = express();
 let port = process.env.port || 3000;
+require('./dbConnection');
 let router = require('./routers/router');
-//MongoDB
-// const { MongoClient, ServerApiVersion } = require("mongodb");
-// const uri =
-//   "mongodb+srv://kevinphan4:42sysuwDcD3H5ER@cluster0.icn9n44.mongodb.net/?retryWrites=true&w=majority";
-// let collection;
 
 app.use(express.static(__dirname + '/'));
 app.use(express.json());
