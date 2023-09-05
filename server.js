@@ -1,6 +1,7 @@
 let express = require('express');
 let app = express();
 let port = process.env.port || 3000;
+let router = require('./routers/router');
 //MongoDB
 // const { MongoClient, ServerApiVersion } = require("mongodb");
 // const uri =
