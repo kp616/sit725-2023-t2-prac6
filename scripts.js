@@ -52,7 +52,7 @@ function postCat(cat) {
 
 //jquery get request
 function getAllCats() {
-  $.get("/api/cats", (response) => {
+  $.get("/api/cat", (response) => {
     // response data in array format to use it
     if(response.statusCode === 200){
       addCards(response.data);
